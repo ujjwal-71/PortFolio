@@ -1,0 +1,801 @@
+/* ========================================
+   POSSE Portfolio — Liquid Glass Theme
+   ======================================== */
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #171717;
+  --text: #F5F5F5;
+  --text-muted: #9A9A9A;
+  --text-faint: #555555;
+  --accent: #E5A93C;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-hover: rgba(255, 255, 255, 0.10);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.18);
+  --glass-blur: 20px;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 100px;
+  --transition: 0.2s ease;
+  --max-width: 640px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; color: inherit; font: inherit; }
+
+/* --- Glass Cursor Lens --- */
+.glass-lens {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.015) 30%,
+    transparent 70%
+  );
+  box-shadow:
+    inset 0 0 60px rgba(255, 255, 255, 0.015),
+    0 0 80px rgba(255, 255, 255, 0.008);
+  will-change: left, top;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  mix-blend-mode: screen;
+}
+
+.glass-lens.visible {
+  opacity: 1;
+}
+
+/* --- Liquid Glass Mixin (via properties) --- */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   PROFILE HEADER
+   ======================================== */
+.profile-header {
+  padding: 48px 20px 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.pfp-wrapper {
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.04));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.pfp {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+  padding-top: 4px;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.profile-role {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.profile-bio {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  line-height: 1.55;
+  max-width: 340px;
+}
+
+/* --- Social Pills --- */
+.profile-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.social-pill:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-highlight);
+  transform: translateY(-1px);
+}
+
+.social-pill svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.85;
+}
+
+/* --- Hire Button --- */
+.hire-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.10),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.1),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.hire-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transition: left 0.5s ease;
+}
+
+.hire-btn:hover::before {
+  left: 100%;
+}
+
+.hire-btn:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+  border-color: rgba(255, 255, 255, 0.20);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================
+   TAB BAR
+   ======================================== */
+.tab-bar {
+  display: flex;
+  max-width: var(--max-width);
+  margin: 28px auto 0;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px 12px;
+  color: var(--text-faint);
+  transition: color var(--transition);
+  position: relative;
+  border: none;
+  background: none;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: transparent;
+  transition: background var(--transition);
+}
+
+.tab.active {
+  color: var(--text);
+}
+
+.tab.active::after {
+  background: var(--text);
+}
+
+.tab:hover {
+  color: var(--text-muted);
+}
+
+.tab svg {
+  width: 22px;
+  height: 22px;
+}
+
+.tab-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ========================================
+   CONTENT GRIDS
+   ======================================== */
+.content-area {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  min-height: 50vh;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Shared grid */
+.grid {
+  display: grid;
+  gap: 3px;
+  margin-top: 3px;
+}
+
+/* Square grid — posters (3 col) */
+.grid-square {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-square .grid-item {
+  aspect-ratio: 1 / 1;
+}
+
+/* Vertical grid — shorts / reels (3 col, 9:16) */
+.grid-vertical {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-vertical .grid-item {
+  aspect-ratio: 9 / 16;
+}
+
+/* Landscape grid — videos and thumbnails (3 col, 16:9) */
+.grid-landscape {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-landscape .grid-item {
+  aspect-ratio: 16 / 9;
+}
+
+/* Grid item */
+.grid-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg-card);
+}
+
+.grid-item img,
+.grid-item .grid-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.grid-item:hover img,
+.grid-item:hover .grid-thumb {
+  transform: scale(1.04);
+  opacity: 0.85;
+}
+
+/* Instagram embed shorts */
+.short-item {
+  position: relative;
+}
+
+.ig-embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+  background: var(--bg-card);
+}
+
+.short-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  transition: background var(--transition);
+}
+
+.short-overlay:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Play overlay for video items */
+.grid-item .play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.grid-item .play-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: white;
+  margin-left: 2px;
+}
+
+/* Video duration badge */
+.grid-item .duration {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text);
+  pointer-events: none;
+}
+
+/* Instagram link badge */
+.grid-item .external-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.grid-item .external-badge svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* ========================================
+   MODAL / LIGHTBOX
+   ======================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-glass {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 24px 80px rgba(0, 0, 0, 0.6);
+  animation: modalIn 0.25s ease;
+}
+
+@keyframes modalIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.modal-close svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text);
+}
+
+.modal-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: calc(85vh - 80px);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: calc(85vh - 100px);
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.modal-content iframe {
+  border-radius: var(--radius-sm);
+  border: none;
+}
+
+/* Modal hire button */
+.modal-hire {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 28px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 2px 12px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.modal-hire:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06));
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 24px 20px 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.footer-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.footer-copy {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+/* ========================================
+   RESPONSIVE — MOBILE FIRST
+   ======================================== */
+
+/* Small phones */
+@media (max-width: 380px) {
+  .profile-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .pfp-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-bio {
+    max-width: 100%;
+  }
+
+  .profile-links {
+    justify-content: center;
+  }
+
+  .tab-label {
+    font-size: 9px;
+  }
+
+  .tab svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Tablets and small desktops */
+@media (min-width: 641px) {
+  :root {
+    --max-width: 768px;
+  }
+
+  .pfp-wrapper {
+    width: 110px;
+    height: 110px;
+  }
+
+  .profile-name {
+    font-size: 28px;
+  }
+
+  .profile-bio {
+    font-size: 14px;
+    max-width: 400px;
+  }
+
+  .grid {
+    gap: 4px;
+    margin-top: 4px;
+  }
+}
+
+/* Larger screens */
+@media (min-width: 960px) {
+  :root {
+    --max-width: 935px;
+  }
+
+  .profile-header {
+    padding-top: 56px;
+  }
+
+  .profile-top {
+    gap: 32px;
+  }
+
+  .pfp-wrapper {
+    width: 130px;
+    height: 130px;
+  }
+
+  .profile-name {
+    font-size: 30px;
+  }
+
+  .hire-btn {
+    max-width: 320px;
+  }
+
+  .grid-item .play-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .grid-item .play-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html { scroll-behavior: auto; }
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   LOADING SKELETON
+   ======================================== */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, #1e1e1e 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
