@@ -1,0 +1,43 @@
+name: Auto-Sync Posters on GitHub
+
+on:
+  push:
+    paths:
+      - 'Posters & graphic design/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pillow
+
+      - name: Run poster sync
+        run: python poster_sync.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/posters-data.js assets/posters/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-sync: update posters order and previews [skip ci]"
+            git push
+          fi
+

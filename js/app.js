@@ -7,16 +7,20 @@
 
   // ── DATA ──────────────────────────────────────────
 
-  // Posters & Graphic Design — compressed to assets/posters/ (110-197KB each)
-  const posters = [
-    { src: 'assets/posters/Artboard 1.jpg' },
-    { src: 'assets/posters/Artboard 1 copy.jpg' },
-    { src: 'assets/posters/Artboard 1 copy 2.jpg' },
-    { src: 'assets/posters/Hit-THe bell.jpg' },
-    { src: 'assets/posters/ClashRoyal.jpg' },
-    { src: 'assets/posters/GodFather.jpg' },
-    { src: 'assets/posters/TechWhiz.jpg' },
+  // Posters & Graphic Design — dynamically loaded from window.PORTFOLIO_POSTERS (sorted newest-first)
+  const defaultPosters = [
+    { src: 'assets/posters/ClashRoyal.jpg', fullSrc: 'Posters & graphic design/ClashRoyal.png' },
+    { src: 'assets/posters/GodFather.jpg', fullSrc: 'Posters & graphic design/GodFather.png' },
+    { src: 'assets/posters/Hit-THe bell.jpg', fullSrc: 'Posters & graphic design/Hit-THe bell.png' },
+    { src: 'assets/posters/TechWhiz.jpg', fullSrc: 'Posters & graphic design/TechWhiz.png' },
+    { src: 'assets/posters/Artboard 1 copy 2.jpg', fullSrc: 'Posters & graphic design/Artboard 1 copy 2.png' },
+    { src: 'assets/posters/Artboard 1 copy.jpg', fullSrc: 'Posters & graphic design/Artboard 1 copy.png' },
+    { src: 'assets/posters/Artboard 1.jpg', fullSrc: 'Posters & graphic design/Artboard 1.png' },
   ];
+
+  const posters = (Array.isArray(window.PORTFOLIO_POSTERS) && window.PORTFOLIO_POSTERS.length > 0)
+    ? window.PORTFOLIO_POSTERS
+    : defaultPosters;
 
   // Shorts / Reels (Instagram posts — open in new tab)
   const shorts = [
@@ -102,14 +106,14 @@
     div.className = 'grid-item';
     const img = document.createElement('img');
     img.loading = 'lazy';
-    img.alt = '';
+    img.alt = item.title || '';
     img.src = item.src;
     // Log warning if image fails to load
     img.onerror = function () {
       console.warn('Failed to load:', item.src);
     };
     div.appendChild(img);
-    div.addEventListener('click', () => openImageModal(item.src, section));
+    div.addEventListener('click', () => openImageModal(item.fullSrc || item.src, section));
     return div;
   }
 
